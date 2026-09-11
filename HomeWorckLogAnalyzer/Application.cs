@@ -147,5 +147,40 @@ namespace HomeWorckLogAnalyzer
             Console.WriteLine("Нажмите любую клавишу...");
             Console.ReadKey();
         }
+
+        private void CreateSampleLog()
+        {
+            Console.WriteLine("--- Создание примера лог-файла ---");
+
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string logPath = Path.Combine(baseDir, "server.log");
+
+            string[] sampleLines = new string[]
+            {
+                "2025-01-15 08:00:01 INFO Сервер запущен",
+                "2025-01-15 08:00:05 INFO Загружена конфигурация",
+                "2025-01-15 08:01:12 DEBUG Проверка соединения с БД",
+                "2025-01-15 08:01:13 INFO Соединение с БД установлено",
+                "2025-01-15 08:05:42 WARNING Медленный запрос: 2.5 сек",
+                "2025-01-15 08:10:00 ERROR Не удалось обработать запрос клиента #1024",
+                "2025-01-15 08:10:01 INFO Повторная попытка обработки",
+                "2025-01-15 08:15:30 WARNING Превышен лимит подключений",
+                "2025-01-15 08:20:11 ERROR Таймаут при обращении к внешнему API",
+                "2025-01-15 08:25:00 INFO Плановое обслуживание завершено",
+                "2025-01-15 08:30:45 CRITICAL Сбой диска на узле storage-2",
+                "2025-01-15 08:30:46 ERROR Невозможно записать данные",
+                "2025-01-15 08:31:00 INFO Переключение на резервный узел",
+                "2025-01-15 08:35:22 WARNING Высокая загрузка CPU: 92%",
+                "2025-01-15 08:40:00 INFO Система работает в штатном режиме"
+            };
+
+            File.WriteAllLines(logPath, sampleLines, Encoding.UTF8);
+
+            Console.WriteLine($"Пример лог-файла создан:");
+            Console.WriteLine(logPath);
+            Console.WriteLine($"Строк: {sampleLines.Length}");
+            Console.WriteLine("Нажмите любую клавишу...");
+            Console.ReadKey();
+        }
     }
 }
