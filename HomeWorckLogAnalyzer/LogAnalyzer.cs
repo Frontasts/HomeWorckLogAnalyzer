@@ -16,6 +16,15 @@ namespace HomeWorckLogAnalyzer
             _logFilePath = logFilePath;
         }
 
+        public List<string> ReadLog()
+        {
+            List<string> lines = new List<string>();
+            string[] rawLines = File.ReadAllLines(_logFilePath, Encoding.UTF8);
+            lines.AddRange(rawLines);
+
+            return lines;
+        }
+
         public bool LogFileExists()
         {
             return File.Exists(_logFilePath);
