@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace HomeWorckLogAnalyzer
 {
-    public class Program
+    public class Application
     {
-        static void Main(string[] args)
+        public void Run()
         {
-            Application application = new Application();
-            application.Run();
+
         }
     }
 }
