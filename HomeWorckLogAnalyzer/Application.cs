@@ -55,15 +55,15 @@ namespace HomeWorckLogAnalyzer
                 switch (input)
                 {
                     case AnalyzeCommand:
-
+                        AnalyzeLog();
                         break;
 
                     case CreateSampleCommand:
-
+                        SaveReport();
                         break;
 
                     case SaveReportCommand:
-
+                        CreateSampleLog();
                         break;
 
                     case ExitCommand:
