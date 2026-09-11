@@ -52,6 +52,11 @@ namespace HomeWorckLogAnalyzer
             return stats;
         }
 
+        public void SaveReport(string reportPath, string reportContent)
+        {
+            File.WriteAllText(reportPath, reportContent, Encoding.UTF8);
+        }
+
         public bool LogFileExists()
         {
             return File.Exists(_logFilePath);
