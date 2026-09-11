@@ -40,6 +40,18 @@ namespace HomeWorckLogAnalyzer
             return count;
         }
 
+        public Dictionary<string, int> BuildStatistics(List<string> lines, List<string> keywords)
+        {
+            Dictionary<string, int> stats = new Dictionary<string, int>();
+
+            foreach (string keyword in keywords)
+            {
+                stats[keyword] = CountOccurrences(lines, keyword);
+            }
+
+            return stats;
+        }
+
         public bool LogFileExists()
         {
             return File.Exists(_logFilePath);
