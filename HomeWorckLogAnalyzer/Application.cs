@@ -11,6 +11,7 @@ namespace HomeWorckLogAnalyzer
     {
         private LogAnalyzer _analyzer;
         private List<string> _keywords;
+        private const string _ReportFileName = "report.txt";
 
         public Application()
         {
@@ -104,6 +105,45 @@ namespace HomeWorckLogAnalyzer
             }
 
             Console.WriteLine();
+            Console.WriteLine("Нажмите любую клавишу...");
+            Console.ReadKey();
+        }
+
+        private void SaveReport()
+        {
+            Console.WriteLine("--- Сохранение отчёта ---");
+
+            if (_analyzer.LogFileExists() == false)
+            {
+                Console.WriteLine("Лог-файл не найден. Сначала создайте пример (пункт 2).");
+                Console.WriteLine("Нажмите любую клавишу...");
+                Console.ReadKey();
+
+                return;
+            }
+
+            List<string> lines = _analyzer.ReadLog();
+            Dictionary<string, int> stats = _analyzer.BuildStatistics(lines, _keywords);
+
+            StringBuilder report = new StringBuilder();
+
+            report.AppendLine("=== Отчёт по анализу логов ===");
+            report.AppendLine($"Дата формирования отчёта: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+            report.AppendLine($"Всего строк: {lines.Count}");
+            report.AppendLine();
+            report.AppendLine("Статистика по событиям:");
+
+            foreach (KeyValuePair<string, int> pair in stats)
+            {
+                report.AppendLine($"  {pair.Key}: {pair.Value}");
+            }
+
+            string reportPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _ReportFileName);
+
+            _analyzer.SaveReport(reportPath, report.ToString());
+
+            Console.WriteLine($"Отчёт сохранён в файл:");
+            Console.WriteLine(reportPath);
             Console.WriteLine("Нажмите любую клавишу...");
             Console.ReadKey();
         }
