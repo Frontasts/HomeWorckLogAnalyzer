@@ -25,6 +25,21 @@ namespace HomeWorckLogAnalyzer
             return lines;
         }
 
+        public int CountOccurrences(List<string> lines, string keyword)
+        {
+            int count = 0;
+
+            foreach (string line in lines)
+            {
+                if (line.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
         public bool LogFileExists()
         {
             return File.Exists(_logFilePath);
