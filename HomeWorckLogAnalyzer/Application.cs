@@ -77,5 +77,35 @@ namespace HomeWorckLogAnalyzer
                 }
             }
         }
+
+        private void AnalyzeLog()
+        {
+            Console.WriteLine("--- Анализ лог-файла ---");
+
+            if (_analyzer.LogFileExists() == false)
+            {
+                Console.WriteLine("Лог-файл не найден. Сначала создайте пример (пункт 2).");
+                Console.WriteLine("Нажмите любую клавишу...");
+                Console.ReadKey();
+                return;
+            }
+
+            List<string> lines = _analyzer.ReadLog();
+
+            Console.WriteLine($"Всего строк в логе: {lines.Count}");
+            Console.WriteLine();
+            Console.WriteLine("Статистика по событиям:");
+
+            Dictionary<string, int> stats = _analyzer.BuildStatistics(lines, _keywords);
+
+            foreach (KeyValuePair<string, int> pair in stats)
+            {
+                Console.WriteLine($"  {pair.Key}: {pair.Value}");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Нажмите любую клавишу...");
+            Console.ReadKey();
+        }
     }
 }
